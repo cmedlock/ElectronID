@@ -88,8 +88,8 @@ void test_sendToIlya(){
   electronTree_->SetBranchAddress("isTrue"    , &isTrue_);
 
   Int_t p=0;
-  TProfile *profID_pt = new TProfile("profID_pt", "profID_pt", 9,10,100);
-  TProfile *profCuts_pt = new TProfile("profCuts_pt", "profCuts_pt", 9,10,100);
+  TProfile *profID_pt = new TProfile("profID_pt", "profID_pt", 18,10,100);
+  TProfile *profCuts_pt = new TProfile("profCuts_pt", "profCuts_pt", 18,10,100);
   TProfile *profID_eta = new TProfile("profID_eta", "profID_eta", 10,-2.5,2.5);
   TProfile *profCuts_eta = new TProfile("profCuts_eta", "profCuts_eta", 10,-2.5,2.5);
 
@@ -112,23 +112,23 @@ void test_sendToIlya(){
 
     // barrel
     if(fabs(etaSC_)<=1.479) {
-      if(dEtaIn_ >= 0.013625) passVetoId_cuts = 0;
-      if(dPhiIn_ >= 0.230374) passVetoId_cuts = 0;
+      if(fabs(dEtaIn_) >= 0.013625) passVetoId_cuts = 0;
+      if(fabs(dPhiIn_) >= 0.230374) passVetoId_cuts = 0;
       if(full5x5_sigmaIetaIeta_ >= 0.011586) passVetoId_cuts = 0;
       if(hOverE_ >= 0.181130) passVetoId_cuts = 0;
-      if(d0_ >= 0.094095) passVetoId_cuts = 0;
-      if(dz_ >= 0.713070) passVetoId_cuts = 0;
+      if(fabs(d0_) >= 0.094095) passVetoId_cuts = 0;
+      if(fabs(dz_) >= 0.713070) passVetoId_cuts = 0;
       if(ooEmooP_ >= 0.295751) passVetoId_cuts = 0;
       if(relIsoWithEA >= 0.158721) passVetoId_cuts = 0;
       if(expectedMissingInnerHits_>2) passVetoId_cuts = 0;
       if(!passConversionVeto_) passVetoId_cuts = 0;
     } else if(1.479 < fabs(etaSC_) && fabs(etaSC_) < 2.5) { // endcap
-      if(dEtaIn_ >= 0.011932) passVetoId_cuts = 0;
-      if(dPhiIn_ >= 0.255450) passVetoId_cuts = 0;
+      if(fabs(dEtaIn_) >= 0.011932) passVetoId_cuts = 0;
+      if(fabs(dPhiIn_) >= 0.255450) passVetoId_cuts = 0;
       if(full5x5_sigmaIetaIeta_ >= 0.031849) passVetoId_cuts = 0;
       if(hOverE_ >= 0.223870) passVetoId_cuts = 0;
-      if(d0_ >= 0.342293) passVetoId_cuts = 0;
-      if(dz_ >= 0.953461) passVetoId_cuts = 0;
+      if(fabs(d0_) >= 0.342293) passVetoId_cuts = 0;
+      if(fabs(dz_) >= 0.953461) passVetoId_cuts = 0;
       if(ooEmooP_ >= 0.155501) passVetoId_cuts = 0;
       if(relIsoWithEA >= 0.177032) passVetoId_cuts = 0;
       if(expectedMissingInnerHits_>3) passVetoId_cuts = 0;
@@ -153,16 +153,16 @@ void test_sendToIlya(){
 
   TCanvas* cprofID_pt = new TCanvas("cprofID_pt","cprofID_pt");
   profID_pt->SetLineColor(kRed); profCuts_pt->SetLineColor(kBlue);
-  profID_pt->GetXaxis()->SetTitle("pT");
-  profID_pt->GetYaxis()->SetTitle("Efficiency");
-  profID_pt->Draw(); profCuts_pt->Draw("same"); gPad->BuildLegend();
+  profCuts_pt->GetXaxis()->SetTitle("pT");
+  profCuts_pt->GetYaxis()->SetTitle("Efficiency");
+  profCuts_pt->Draw(); profID_pt->Draw("same"); gPad->BuildLegend();
   cprofID_pt->Print("cprofID_pt.png");
 
   TCanvas* cprofID_eta = new TCanvas("cprofID_eta","cprofID_eta");
   profID_eta->SetLineColor(kRed); profCuts_eta->SetLineColor(kBlue);
-  profID_eta->GetXaxis()->SetTitle("eta");
-  profID_eta->GetYaxis()->SetTitle("Efficiency");
-  profID_eta->Draw(); profCuts_eta->Draw("same"); gPad->BuildLegend();
+  profCuts_eta->GetXaxis()->SetTitle("eta");
+  profCuts_eta->GetYaxis()->SetTitle("Efficiency");
+  profCuts_eta->Draw(); profID_eta->Draw("same"); gPad->BuildLegend();
   cprofID_eta->Print("cprofID_eta.png");
 
 }
